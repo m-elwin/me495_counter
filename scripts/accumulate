@@ -12,7 +12,7 @@ class Accumulator(object):
     def callback(self, data):
         self.count += data.count
         print "hello"
-        rospy.loginfo(rospy.get_caller_id() + " mode " + data.mode + " count %d", self.count)
+        rospy.loginfo(rospy.get_name() + " recieved from " + data.mode + " count %d", self.count)
 
 def main():
     rospy.init_node("accumulate")
