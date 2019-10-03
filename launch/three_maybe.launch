@@ -7,9 +7,7 @@
   <param name="val" value="1" />
 </node>
 
-<node pkg="counter" type="count_up" name="up" if="$(arg up)">
-  <param name="val" value="$(eval 2+2)" />
-</node>
+<node pkg="counter" type="count_down" name="up" if="$(arg up)" />
 
 </group>
 
