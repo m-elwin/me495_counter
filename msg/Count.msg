@@ -1,2 +1,2 @@
-string parity
+string mode
 int32 count
