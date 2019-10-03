@@ -1,0 +1,4 @@
+<launch>
+<include file="$(find counter)/launch/three_maybe.launch" />
+<include file="$(find counter)/launch/count_nodes.launch" />
+</launch>
