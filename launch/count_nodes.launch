@@ -1,11 +1,41 @@
 <launch>
 
-<!-- Create a node that sends out a count of 2+2 at each cycle -->
+<!--
+Create a node from the "counter" package.
+The node is the "accumulate" node, whose source code is in scripts/accumulate
+When the node is launched, it will be called "accum1".
+The node will be launched in the "basic" namespace.
+
+Thus the node will have relative name "basic/accum1"
+If called directly from roslaunch and without setting the ROS_NAMESPACE the global
+name will be /basic/accum1
+
+the output="screen" element directs the node to send its output to your screen instead
+of to a long file
+-->
+<node pkg="counter" type="accumulate" name="accum1" ns="basic" output="screen"/>
+
+
+<!-- Create a node that sends out a count of 2+2 at each cycle 
+This node has the relative name "basic/steady1".
+If run from the default namespace its global name will be /basic/steady1
+
+a param element that is the child of a node element is interpreted
+as being private to that node.
+
+Thus, val expands to basic/steady1/val.
+
+The substitution argument $(eval 2+2) executes the python code 2+2 and
+returns the result (in this case 4).
+
+Notice in the code for count_steady, a variable is set to the value
+of the parameter "~val", a private parameter name
+
+-->
 <node pkg="counter" type="count_steady" name="steady1" ns="basic">
   <param name="val" value="$(eval 2+2)" />
 </node>
 
 
-<node pkg="counter" type="accumulate" name="accum1" ns="basic" output="screen"/>
 
 </launch>
