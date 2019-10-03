@@ -8,6 +8,7 @@ PUBLISHERS:
 
 import rospy
 from counter.msg import Count
+from std_srvs.srv import Empty, EmptyResponse
 
 class CounterTimer(object):
    """ Maintain a count in a timer callback 
@@ -16,15 +17,26 @@ class CounterTimer(object):
          timer: the timer object
          pub: publisher for the count
          count: the current count
+         stopsrv: stop service
     """
    def __init__(self):
-     self.timer = rospy.Timer(rospy.Duration(1), self.callback)
      self.pub = rospy.Publisher("count", Count, queue_size = 10)
      self.count = 100
+     self.stopped = False
+     self.stopsrv = rospy.Service('stop', Empty, self.stop)
+
+     # Timer should be initialized last. It starts in a separate thread
+     # So everything should be initialized before the callback can be called
+     self.timer = rospy.Timer(rospy.Duration(1), self.callback)
 
    def callback(self, event):
-      self.pub.publish(Count(mode = rospy.get_name(), count = self.count))
-      self.count -= 1
+      if not self.stopped:
+         self.pub.publish(Count(mode = rospy.get_name(), count = self.count))
+         self.count -= 1
+
+   def stop(self, req):
+      self.stopped = not self.stopped
+      return EmptyResponse()
 
 def main():
    rospy.init_node('count_down')
