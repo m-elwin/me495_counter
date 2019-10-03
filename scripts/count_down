@@ -23,7 +23,7 @@ class CounterTimer(object):
      self.count = 100
 
    def callback(self, event):
-      self.pub.publish(Count(mode = "down", count = self.count))
+      self.pub.publish(Count(mode = rospy.get_name(), count = self.count))
       self.count -= 1
 
 def main():

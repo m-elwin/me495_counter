@@ -16,7 +16,7 @@ def main():
 
    i = 0
    while not rospy.is_shutdown():
-      pub.publish(Count(mode="up", count = i))
+      pub.publish(Count(mode=rospy.get_name(), count = i))
       i += 1
       rate.sleep()
 
