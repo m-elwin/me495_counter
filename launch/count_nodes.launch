@@ -2,7 +2,7 @@
 
 <!-- Create a node that sends out a count of 2+2 at each cycle -->
 <node pkg="counter" type="count_steady" name="steady1" ns="basic">
-  <param name="increment" value="$(eval 2+2)" />
+  <param name="val" value="$(eval 2+2)" />
 </node>
 
 

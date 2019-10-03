@@ -1,0 +1,24 @@
+<launch>
+<arg name="up" default="true" doc="Launch the count up node if true"/>
+
+<group ns="threes">
+
+<node pkg="counter" type="count_steady" name="steady">
+  <param name="val" value="1" />
+</node>
+
+<node pkg="counter" type="count_up" name="up" if="$(arg up)">
+  <param name="val" value="$(eval 2+2)" />
+</node>
+
+</group>
+
+<!-- Note that even though accumulate is is in a different namespace,
+     The topic has been remapped into the "threes" namespace
+     -->
+
+<node pkg="counter" type="accumulate" name="accum3" output="screen">
+  <remap from="count" to="threes/count" />
+</node>
+
+</launch>

@@ -4,18 +4,22 @@ Publishes a count that is constant, once per second
 
 PUBLISHERS:
    count (Count) ~ Publishes the count
+
+PARAMETERS:
+  ~val (int) ~ Get's the amount to send as the count
 """
 
 import rospy
 from counter.msg import Count
 
 def main():
-   rospy.init_node('count_up')
+   rospy.init_node('count_steady')
    pub = rospy.Publisher("count", Count, queue_size = 10)
    rate = rospy.Rate(1)
 
+   val = rospy.get_param("~val")
    while not rospy.is_shutdown():
-      pub.publish(Count(mode=rospy.get_name(), count = 1))
+      pub.publish(Count(mode=rospy.get_name(), count = val))
       rate.sleep()
 
 if __name__ == "__main__":
