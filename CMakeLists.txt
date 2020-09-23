@@ -150,7 +150,7 @@ include_directories(
 
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-catkin_install_python(PROGRAMS scripts/accumulate scripts/count_down scripts/count_steady scripts/count_up DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+catkin_install_python(PROGRAMS nodes/accumulate nodes/count_down nodes/count_steady nodes/count_up DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 # install(PROGRAMS
