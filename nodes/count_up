@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """
 Publishes a count that increases once per second
+This example uses a loop and rospy.Rate to publish at a fixed frequency
 
 PUBLISHERS:
    count (Count) ~ Publishes the count

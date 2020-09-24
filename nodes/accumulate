@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+"""
+ The Accumlate node subscribes to a message, sums the data received,
+ and logs the result
+
+SUBSCRIBES:
+  count (Count) - the count to add to the accumulated total
+"""
 
 import rospy
 from counter.msg import Count
@@ -10,6 +17,12 @@ class Accumulator(object):
         rospy.Subscriber("count", Count, self.callback)
 
     def callback(self, data):
+        """ Used as the 'count' callback.  
+           
+            Args:
+               data (Count) - the received count
+        """
+
         self.count += data.count
         rospy.loginfo(rospy.get_name() + " received from " + data.mode + " count %d", self.count)
 

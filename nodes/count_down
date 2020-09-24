@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 """
 Publishes a count that decreases once per second
+This example uses a ROS timer to publish at a fixed frequency
 
 PUBLISHERS:
    count (Count) ~ Publishes the count
+
+SERVICES:
+   stop (Empty) - causes publication to stop
 """
 
 import rospy
@@ -30,11 +34,13 @@ class CounterTimer(object):
      self.timer = rospy.Timer(rospy.Duration(1), self.callback)
 
    def callback(self, event):
+      """ A timer callback that periodically publishes a count """
       if not self.stopped:
          self.pub.publish(Count(mode = rospy.get_name(), count = self.count))
          self.count -= 1
 
    def stop(self, req):
+      """ Stop publishing.  """
       self.stopped = not self.stopped
       return EmptyResponse()
 
